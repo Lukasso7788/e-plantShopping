@@ -7,8 +7,13 @@ const CartItem = ({ onContinueShopping }) => {
   const cart = useSelector(state => state.cart.items);
   const dispatch = useDispatch();
 
-  const calculateTotalAmount = () =>
-    cart.reduce((total, item) => total + parseFloat(item.cost.substring(1)) * item.quantity, 0);
+  const calculateTotalAmount = () => {
+    let total = 0;
+    cart.forEach((item) => {
+      total += parseFloat(item.cost.substring(1)) * item.quantity;
+    });
+    return total;
+  };
 
   const handleContinueShopping = (e) => onContinueShopping(e);
   const handleCheckoutShopping = () => {
